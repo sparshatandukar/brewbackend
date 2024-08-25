@@ -2,19 +2,19 @@ const Ingredient = require("../Models/ingredientModel");
 
 //  controller for adding a category
 const addIngredient= async (req, res) => {
-  const { ingredientName, description, quantity} = req.body;
-  if (!ingredientName || !description || !quantity) {
+  const {recipeId, ingredientName,quantity} = req.body;
+  if (!ingredientName || !quantity) {
     return res.status(400).json({ msg: "All fields are required" });
   }
   //  check if category already exists
   try {
-    const ingredientExists = await Ingredient.findOne({ ingredientName });
-    if (ingredientExists) {
-      return res.status(400).json({ msg: "Ingredient already exists" });
-    }
+    // const ingredientExists = await Ingredient.findOne({ ingredientName });
+    // if (ingredientExists) {
+    //   return res.status(400).json({ msg: "Ingredient already exists" });
+    // }
     const ingredient = new Ingredient({
+      recipeId,
       ingredientName,
-      description,
       quantity
     });
     await ingredient.save();
@@ -43,30 +43,37 @@ const getIngredients = async (req, res) => {
 // controller for getting a single category
 
 const getIngredient = async (req, res) => {
-    try {
-        const ingredient = await Ingredient.findById(req.params.id);
-        if (!ingredient) {
-        return res.status(404).json({ msg: "ingredient not found" });
-        }
-        return res.status(200).json({ msg: "ingredient fetched successfully", ingredient });
-    } catch (error) {
-        return res.status(500).json({ msg: error.message });
+  try {
+    const recipeId = req.params.id; // Extract recipeId from request parameters
+
+    // Find ingredients with the given recipeId
+    const ingredients = await Ingredient.find({ recipeId: recipeId });
+
+    if (ingredients.length === 0) {
+      return res.status(404).json({ msg: "No ingredients found for this recipe" });
     }
-    }
+
+    return res.status(200).json({
+      msg: "Ingredients fetched successfully",
+      ingredients,
+    });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
+};
 
 
 // controller for updating a category
 
 const updateIngredient = async (req, res) => {
-    const {ingredientName, description,quantity} = req.body;
-    if (!ingredientName || !description || !quantity) {
+    const {ingredientName,quantity} = req.body;
+    if (!ingredientName || !quantity) {
         return res.status(400).json({ msg: "All fields are required" });
     }
     try {
         const ingredient = await Ingredient.findByIdAndUpdate(
         req.params.id,
         {  ingredientName,
-            description,
             quantity},
         { new: true }
         );

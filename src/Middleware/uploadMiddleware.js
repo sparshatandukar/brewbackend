@@ -49,12 +49,21 @@ const profileImageStorage = diskStorage({
   filename,
 });
 
+const recipeImageStorage = diskStorage({
+  destination: getDestination("recipes"),
+  filename,
+});
 // Multer instances
 const profileImage = multer({
   storage: profileImageStorage,
   fileFilter: filter,
 });
 
+const recipeImage = multer({
+  storage: recipeImageStorage,
+  fileFilter: filter,
+});
 module.exports = {
   profileImage,
+  recipeImage
 };

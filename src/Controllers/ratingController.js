@@ -2,8 +2,8 @@ const Rating = require("../Models/ratingModel");
 
 //  controller for adding a rating
 const addRating = async (req, res) => {
-  const { ratings, description} = req.body;
-  if (!ratings || !description ) {
+  const { ratings} = req.body;
+  if (!ratings) {
     return res.status(400).json({ msg: "All fields are required" });
   }
   //  check if category already exists
@@ -57,8 +57,8 @@ const getRating = async (req, res) => {
 // controller for updating a rating
 
 const updateRating = async (req, res) => {
-    const { ratings, description} = req.body;
-    if (!ratings || !description) {
+    const { ratings} = req.body;
+    if (!ratings) {
         return res.status(400).json({ msg: "All fields are required" });
     }
     try {

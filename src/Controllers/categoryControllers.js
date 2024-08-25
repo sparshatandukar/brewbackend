@@ -8,10 +8,10 @@ const addCategory = async (req, res) => {
   }
   //  check if category already exists
   try {
-    const categoryExists = await Category.findOne({ name });
-    if (categoryExists) {
-      return res.status(400).json({ msg: "Category already exists" });
-    }
+    // const categoryExists = await Category.findOne({ name });
+    // if (categoryExists) {
+    //   return res.status(400).json({ msg: "Category already exists" });
+    // }
     const category = new Category({
       name,
       types,

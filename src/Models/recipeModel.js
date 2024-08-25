@@ -3,6 +3,12 @@ const mongoose = require('mongoose');
 const {Schema} = mongoose;//destructing
 // const Schema  =mongoose.Schema;
 const RecipeSchema = new Schema({
+
+    categoryId:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category',
+        required: true
+    },
     recipeName:{
         type: String,
         required:[true, " name is required"]
@@ -20,9 +26,16 @@ const RecipeSchema = new Schema({
     difficulty:{
         type:String, 
         enum:["easy", "intermediate", "advanced"],
-        // default:"user",
         required:true
     },
+
+    direction:{
+        type:String,
+        required:[true, "Direction is required"]
+    },
+    recipeImage:{
+        type:String
+    }
    
 });
 

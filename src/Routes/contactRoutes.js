@@ -12,9 +12,7 @@ const contactController = require("../Controllers/contactController");
  * @return response
  */
 
-router.post("/create", auth, authorizeRole('admin'), contactController.addContact);
-router.put("/update/:id", auth, authorizeRole('admin'), contactController.updateContact);
-router.get("/all", auth, authorizeRole('admin'), contactController.getContacts);
-router.get("/:id", auth, authorizeRole('admin'), contactController.getContact);
+router.post("/create", auth, authorizeRole('user'), contactController.addContact);
+
 
 module.exports = router;

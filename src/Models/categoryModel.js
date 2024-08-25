@@ -5,9 +5,7 @@ const {Schema} = mongoose;//destructing
 const CategorySchema = new Schema({
     name:{
         type: String,
-        required: [true, "Category name is required"],
-         unique: true,
-
+        required: [true, "Category name is required"]
     },
    
     types:{

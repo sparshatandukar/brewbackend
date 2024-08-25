@@ -6,12 +6,8 @@ const ratingSchema = new Schema({
     ratings:{
         type:Number,
         required:[true, "Rating is required"]
-    },
+    }
    
-    description:{
-        type:String,
-        required:true[true, "Description is required"]
-    },
    
 });
 

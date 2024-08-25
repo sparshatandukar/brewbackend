@@ -13,8 +13,9 @@ const ingredientController = require("../Controllers/ingredientController");
  */
 
 router.post("/create", auth, authorizeRole('admin'), ingredientController.addIngredient);
-router.put("/update/:id", auth, authorizeRole('admin'), ingredientController.updateIngredient);
+router.patch("/update/:id", auth, authorizeRole('admin'), ingredientController.updateIngredient);
 router.get("/all", auth, authorizeRole('admin'), ingredientController.getIngredients);
-router.get("/:id", auth, authorizeRole('admin'), ingredientController.getIngredient);
+router.get("/:id", auth, ingredientController.getIngredient);
+router.delete("/delete/:id", auth, authorizeRole('admin'), ingredientController.deleteIngredient);
 
 module.exports = router;
